@@ -2,22 +2,27 @@
 
 # Instalando o projeto
 
-O projeto se utiliza de contêineres Docker, através do pacote *Laravel Sail* para facilitar a configuração do ambiente de desenvolvimento. Portanto, é necessário que já possua o Docker e o Docker Compose instalados na máquina.
+O projeto se utiliza de contêineres Docker, através do pacote _Laravel Sail_ para facilitar a configuração do ambiente de desenvolvimento. Portanto, é necessário que já possua o Docker e o Docker Compose instalados na máquina.
 
 Você é livre para rodar o projeto em ambiente local mas esse texto não tratará essa situação.
 
 Links para instalação e configuração de Docker:
 
-- [Windows](https://docs.docker.com/docker-for-windows/install/)
-- [Linux (Debian based)](https://docs.docker.com/engine/install/ubuntu/)
+-   [Windows](https://docs.docker.com/docker-for-windows/install/)
+-   [Linux (Debian based)](https://docs.docker.com/engine/install/ubuntu/)
+
+### Deploy do Projeto
+
+-   [Deploy do Zero (VPS)](https://beer-and-code.notion.site/Deploy-do-Zero-VPS-e4ba0e9889354f05b8bad1ac9bbc603b)
 
 ### Passos para o rodar o projeto localmente:
 
-- Faça um clone do projeto para sua máquina local
-- Crie um arquivo `.env`, recomendamos usar `.env-example` como base
-- Adicione ou altere as chaves conforme sua necessidade
-- acesse a pasta do projeto via console (terminal/PowerShell/CMD)
-- execute o comando:
+-   Faça um clone do projeto para sua máquina local
+-   Crie um arquivo `.env`, recomendamos usar `.env-example` como base
+-   Adicione ou altere as chaves conforme sua necessidade
+-   acesse a pasta do projeto via console (terminal/PowerShell/CMD)
+-   execute o comando:
+
 ```shell
 docker run --rm \
     -u "$(id -u):$(id -g)" \
@@ -25,12 +30,13 @@ docker run --rm \
     -w /var/www/html \
     laravelsail/php82-composer:latest \
     composer install --ignore-platform-reqs
- ```
-- Após finalizado processamento, execute o comando `sail up -d`
+```
 
-O primeiro comando realiza a instalação dos pacotes via composer especificados no arquivo `composer.json` e uma vez que a instalação termina, a pasta *vendor* passa a ficar disponível no projeto. O comando seguinte levanta os contêineres baseado na descrição de serviços feita no arquivo `docker-compose.yml`.
+-   Após finalizado processamento, execute o comando `sail up -d`
 
-Por padrão, não é necessária nenhuma configuração no arquivo *.env* do projeto. Caso seja necessária alguma edição na configuração padrão (relacionado a binding ports ou credenciais de banco de dados), basta editar o arquivo *.env*.
+O primeiro comando realiza a instalação dos pacotes via composer especificados no arquivo `composer.json` e uma vez que a instalação termina, a pasta _vendor_ passa a ficar disponível no projeto. O comando seguinte levanta os contêineres baseado na descrição de serviços feita no arquivo `docker-compose.yml`.
+
+Por padrão, não é necessária nenhuma configuração no arquivo _.env_ do projeto. Caso seja necessária alguma edição na configuração padrão (relacionado a binding ports ou credenciais de banco de dados), basta editar o arquivo _.env_.
 
 # Trabalhando com Contêineres
 
@@ -43,27 +49,30 @@ docker-compose exec \ #execução de um comando num contêiner existente
     php artisan route:list # qual o comando a ser executado
 ```
 
-A execução, dessa forma, se torna muito verbosa e trabalhosa, podendo levar a potenciais erros de execução. Assim, o *Laravel Sail* oferece um script chamado `sail` e localizado em *vendor/bin/*. Esse script permite que tais comandos sejam executados através de aliases para que o fluxo de desenvolvimento seja mais natural e menos complexo. Assim, para se executar o mesmo comando `php artisan route:list` com o script `sail` ficaria:
+A execução, dessa forma, se torna muito verbosa e trabalhosa, podendo levar a potenciais erros de execução. Assim, o _Laravel Sail_ oferece um script chamado `sail` e localizado em _vendor/bin/_. Esse script permite que tais comandos sejam executados através de aliases para que o fluxo de desenvolvimento seja mais natural e menos complexo. Assim, para se executar o mesmo comando `php artisan route:list` com o script `sail` ficaria:
 
- ```bash
- ./vendor/bin/sail artisan route:list
+```bash
+./vendor/bin/sail artisan route:list
 
- #ou
+#ou
 
- ./vendor/bin/sail art route:list
- ```
+./vendor/bin/sail art route:list
+```
 
 ### Comandos disponíveis
 
 Para conhecer os comandos disponíveis pelo script sail, execute `./vendor/bin/sail -h` para obter a listagem completa das opções com descrição.
 
 # Próximos passos
-Migrations são uma maneira de versionar as tabelas de sua base de dados. Para estruturar o seu banco de dados
-- Execute `./vendor/bin/sail art migrate` para montar sua adicionar as tabelas ao seu banco
 
-- Execute `./vendor/bin/sail art db:seed` para popular o seu banco com dados fictícios
+Migrations são uma maneira de versionar as tabelas de sua base de dados. Para estruturar o seu banco de dados
+
+-   Execute `./vendor/bin/sail art migrate` para montar sua adicionar as tabelas ao seu banco
+
+-   Execute `./vendor/bin/sail art db:seed` para popular o seu banco com dados fictícios
 
 # Diagrama do banco de dados
+
 ![Diagrama](https://i.ibb.co/6FsBZtJ/Captura-de-tela-2024-06-18-094423.png)
 
 [Veja o diagrama completo](https://dbdiagram.io/e/666f3d8ea179551be602d807/667180b85a764b3c72c7e72e)
